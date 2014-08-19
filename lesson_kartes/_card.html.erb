@@ -1,0 +1,116 @@
+<div class='Card'>
+  <div class='card_contents'>
+    <form>
+      <h1> <%= lesson_info[:date][0] %>年<%= lesson_info[:date][1] %>月<%= lesson_info[:date][2] %>日</h1>
+      <h2>指導コーチ</h2>
+      <ul class='readonly coachs'>
+        <% lesson_info[:coaches].each do |value| %>
+          <li><%= value %></li>
+        <% end %>
+      </ul>
+      <h2>参加者</h2>
+      <ul class='readonly roll_books'>
+        <% lesson_info[:students].each do |value| %>
+          <li><%= value %></li>
+        <% end %>
+      </ul>
+      <h2>レッスンメニュー</h2>
+      <div >
+        <h3>ウォームアップ</h3>
+        <% search_ids = Array.new %>
+        <% search_id = nil %>
+        <% class_id = 0 %>
+	<% tag_num = 0 %>
+        <% for i in 1..lesson_info[:warmups].length do %>
+          <% lesson_info[:warmups].each do |value| %>
+	    <% if value[:parent_id] == search_id %>
+	      <% if class_id == 0 %>
+                <ul class='readonly lesson_menus'>
+	      <% end %>
+	      <li><%= value[:name] %></li>
+	      <% tag_num += 1 %>
+	      <% value[:parent_id] = 0 %>
+	      <% search_ids.push(search_id) %>
+	      <% search_id = value[:id] %>
+	      <% class_id = 0 %>
+	    <% end %>
+          <% end %>
+          <% search_id = search_ids.pop %>
+          <% class_id = 1 %>
+          <% i -= i %>
+	  <% if tag_num == 0 %>
+		</ul>
+	  <% end %>
+	  <% tag_num = 0 %>
+        <% end %> </ul>
+        <h3>メニュー</h3>
+        <% search_ids = Array.new %>
+        <% search_id = nil %>
+        <% class_id = 0 %>
+	<% tag_num = 0 %>
+        <% for i in 1..lesson_info[:menus].length do %>
+          <% lesson_info[:menus].each do |value| %>
+	    <% if value[:parent_id] == search_id %>
+	      <% if class_id == 0 %>
+                <ul class='readonly lesson_menus'>
+	      <% end %>
+	      <li><%= value[:name] %></li>
+	      <% tag_num += 1 %>
+	      <% value[:parent_id] = 0 %>
+	      <% search_ids.push(search_id) %>
+	      <% search_id = value[:id] %>
+	      <% class_id = 0 %>
+	    <% end %>
+          <% end %>
+          <% search_id = search_ids.pop %>
+          <% class_id = 1 %>
+          <% i -= i %>
+	  <% if tag_num == 0 %>
+		</ul>
+	  <% end %>
+	  <% tag_num = 0 %>
+        <% end %></ul>
+        <h3>トレーニング</h3>
+        <% search_ids = Array.new %>
+        <% search_id = nil %>
+        <% class_id = 0 %>
+	<% tag_num = 0 %>
+        <% for i in 1..lesson_info[:trainings].length do %>
+          <% lesson_info[:trainings].each do |value| %>
+	    <% if value[:parent_id] == search_id %>
+	      <% if class_id == 0 %>
+                <ul class='readonly lesson_menus'>
+	      <% end %>
+	      <li><%= value[:name] %></li>
+	      <% tag_num += 1 %>
+	      <% value[:parent_id] = 0 %>
+	      <% search_ids.push(search_id) %>
+	      <% search_id = value[:id] %>
+	      <% class_id = 0 %>
+	    <% end %>
+          <% end %>
+          <% search_id = search_ids.pop %>
+          <% class_id = 1 %>
+          <% i -= i %>
+	  <% if tag_num == 0 %>
+		</ul>
+	  <% end %>
+	<% tag_num = 0 %>
+        <% end %></ul>
+      </div>
+      <h2>レッスン全体へのコメント</h2>
+      <div class='lesson_karte_comments readonly' >
+        <%= lesson_info[:lesson_comment] %></div>
+      <h2>生徒個別コメント</h2>
+      <div class='student_comments'>
+        <div class='student_comment'>
+          <% lesson_info[:student_comments].each_index do |key| %>
+            <h3>  <%= lesson_info[:students][key] %> </h3>
+            <div class='lesson_karte_comments readonly'>
+              <%= lesson_info[:student_comments][key] %> </div>
+          <% end %>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>

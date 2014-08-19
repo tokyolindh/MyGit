@@ -1,0 +1,97 @@
+﻿<div class="AppBar user-appbar" id="app_bar">
+  <div class="AppIconArea"> 
+    <%= image_tag("T1.png", :class => "Icon", :id => "page_icon") %> <span id="app_name"></span>
+    <div class="box_write_button">
+      <button id="write_lesson_karte" class="button">レッスン台帳を書く</button>
+    </div>
+  </div>
+  <div class="MenuBox">
+    <form action="/lesson_kartes" method="get">
+      <div class="box_select">
+        <span>コース選択</span>
+
+        <% if !@selected_value.blank? %>
+          <select class="List" id="select_course_name" name="select_course[name]">
+            <option value="1" <% if @selected_value[0] == "1" %>selected<% end %>>
+            トーナメント
+            </option>
+            <option value="2" <% if @selected_value[0] == "2" %>selected<% end %>>
+            プレトーナメント
+            </option>
+            <option value="3" <% if @selected_value[0] == "3" %>selected<% end %>>
+            チャレンジ
+            </option>
+          </select>
+          <select class="List" id="select_day_name" name="select_day[name]">
+	    <option value="0" <% if @selected_value[1] == "0" %>selected<% end %>>
+	      全部
+	    </option>
+        <option value="1" <% if @selected_value[1] == "1" %>selected<% end %>>
+            月曜日
+           </option>
+            <option value="2" <% if @selected_value[1] == "2" %>selected<% end %>>
+            火曜日
+            </option>
+            <option value="3" <% if @selected_value[1] == "3" %>selected<% end %>>
+            水曜日
+            </option>
+            <option value="4" <% if @selected_value[1] == "4" %>selected<% end %>>
+            木曜日
+            </option>
+            <option value="5" <% if @selected_value[1] == "5" %>selected<% end %>>
+            金曜日
+            </option>
+            <option value="6" <% if @selected_value[1] == "6" %>selected<% end %>>
+            土曜日
+            </option>
+            <option value="7" <% if @selected_value[1] == "7" %>selected<% end %>>
+            日曜日
+            </option>
+	    <option value="8" <% if @selected_value[1] == "0" %>selected<% end %>>
+	      臨時
+	    </option>
+          </select>
+        <% else %>
+          <select class="List" id="select_course_name" name="select_course[name]">
+            <option value="1">トーナメント</option>
+            <option value="2">プレトーナメント</option>
+            <option value="3">チャレンジ</option>
+          </select>
+          <select class="List" id="select_day_name" name="select_day[name]">
+            <option value="0">全部</option>
+            <option value="1">月曜日</option>
+            <option value="2">火曜日</option>
+            <option value="3">水曜日</option>
+            <option value="4">木曜日</option>
+            <option value="5">金曜日</option>
+            <option value="6">土曜日</option>
+            <option value="7">日曜日</option>
+            <option value="8">臨時</option>
+          </select>
+        <% end %>
+        <input class="List" type="submit" value="決定" name="select_lesson_course">
+      </div>
+    </form>
+
+  </div>
+</div>
+
+<% if !@select_lesson_info.blank? %>
+  <% max_cont_width =  @select_lesson_info.length * (400 + 25) %>
+  <%= content_tag(:div, :id => "main", :style => "width: " + max_cont_width.to_s + "px;") do -%>
+    <!-- <div id="main" style="width: 1800px;"> -->
+    <% @select_lesson_info.each do |lesson_info| %>
+      <%= render(:partial => "card", :locals => {:lesson_info => lesson_info}) %>
+    <% end %>
+    
+    <!-- </div> -->
+  <% end %>
+<% end %>
+
+<div style="visibility: hidden">
+  <img src="#" style="display: block" id="IMAGE">
+</div>
+
+<script type="text/javascript">
+ TOMsApp.load();
+</script>
