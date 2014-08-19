@@ -1,0 +1,123 @@
+<%= form_tag('/lesson_kartes', :id => :card_form_new, :method => :post) do %>
+  <div class="AppBar user-appbar" id="app_bar">
+    <div class="AppIconArea"> 
+      <%= image_tag("T1.png", :class => "Icon", :id => "page_icon") %>
+      <span id="app_name"></span>
+    </div>
+    <div class="MenuBox">
+      <div class="box_select">
+        <span>コース選択</span>
+	<select class="List" id="select_course_name" name="select_course[name]">
+	  <option value="1" <% if @selected_value[0] == "1" %>selected<% end %>>
+	    トーナメント
+	  </option>
+	  <option value="2" <% if @selected_value[0] == "2" %>selected<% end %>>
+	    プレトーナメント
+	  </option>
+	  <option value="3" <% if @selected_value[0] == "3" %>selected<% end %>>
+	    チャレンジ
+	  </option>
+	</select>
+	<select class="List" id="select_day_name" name="select_day[name]">
+	  <option value="0" <% if @selected_value[1] == "0" %>selected<% end %>>
+	    全部
+	  </option>
+	  <option value="1" <% if @selected_value[1] == "1" %>selected<% end %>>
+	    月曜日
+	  </option>
+	  <option value="2" <% if @selected_value[1] == "2" %>selected<% end %>>
+	    火曜日
+	  </option>
+	  <option value="3" <% if @selected_value[1] == "3" %>selected<% end %>>
+	    水曜日
+	  </option>
+	  <option value="4" <% if @selected_value[1] == "4" %>selected<% end %>>
+	    木曜日
+	  </option>
+	  <option value="5" <% if @selected_value[1] == "5" %>selected<% end %>>
+	    金曜日
+	  </option>
+	  <option value="6" <% if @selected_value[1] == "6" %>selected<% end %>>
+	    土曜日
+	  </option>
+	  <option value="7" <% if @selected_value[1] == "7" %>selected<% end %>>
+	    日曜日
+	  </option>
+	  <option value="8" <% if @selected_value[1] == "8" %>selected<% end %>>
+	    臨時
+	  </option>
+	</select>
+      </div>
+    </div>
+  </div>
+  <div id='Card_new' >
+    <div id='card_contents_new' class='card_contents'>
+      <h1><%= @date[0] %>年<%= @date[1] %>月<%= @date[2] %>日</h1>
+
+
+      <h2>指導コーチ</h2>
+      <ul id='coachs_new' class='coachs editable'></ul>
+      <h2>参加者</h2>
+      <ul id='roll_books_new' class='roll_books editable'></ul>
+      <h2>レッスンメニュー</h2>
+      <div id='lesson_books_new'>
+	<h3>ウォームアップ</h3>
+	<div id='lesson_warmups' class='editable menu_root'>
+	  <div id="lesson_warmups_0" class="lesson_menu_box" data-count="1">
+	    <span> -> </span>
+	    <input type="text" name="lesson_warmups_0">
+	    <div class="icon_box" style="display: inline;">
+	      <a class="menu_close"><span class="ui-icon ui-icon-close ui-icon-inline" ></span></a>
+	      <a class="menu_badd"><span class="ui-icon ui-icon-arrowthick-1-s ui-icon-inline" ></span></a>
+	      <a class="menu_radd"><span class="ui-icon ui-icon-arrowthick-1-se ui-icon-inline" ></span></a>
+	    </div>
+	  </div>
+	</div>
+	<h3>メニュー</h3>
+	<div id='lesson_menus' class='editable menu_root'>
+	  <div id="lesson_menus_0" class="lesson_menu_box" data-count"1">
+	    <span> -> </span>
+	    <input type="text" name="lesson_menus_0">
+	    <div class="icon_box" style="display: inline;">
+	      <a class="menu_close"><span class="ui-icon ui-icon-close ui-icon-inline" ></span></a>
+	      <a class="menu_badd"><span class="ui-icon ui-icon-arrowthick-1-s ui-icon-inline" ></span></a>
+	      <a class="menu_radd"><span class="ui-icon ui-icon-arrowthick-1-se ui-icon-inline" ></span></a>
+	    </div>
+	  </div>
+	</div>
+	<h3>トレーニング</h3>
+	<div id='lesson_trainings' class='editable menu_root'>
+	  <div id="lesson_trainings_0" class="lesson_menu_box" data-count="1">
+	    <span> -> </span>
+	    <input type="text" name="lesson_trainings_0">
+	    <div class="icon_box" style="display: inline;">
+	      <a class="menu_close"><span class="ui-icon ui-icon-close ui-icon-inline" ></span></a>
+	      <a class="menu_badd"><span class="ui-icon ui-icon-arrowthick-1-s ui-icon-inline" ></span></a>
+	      <a class="menu_radd"><span class="ui-icon ui-icon-arrowthick-1-se ui-icon-inline" ></span></a>
+	    </div>
+	  </div>
+	</div>
+	<h2>レッスン全体へのコメント</h2> 
+	<div id='lesson_karte_comments_new'>
+	  <textarea type='text' name='lesson_karte_comments' class='editable'></textarea> 
+	</div> 
+	<h2>生徒個別コメント</h2>
+	<div id='student_comments_new'></div>
+	<button id="save_lesson_karte" class="button">保存</button>
+      </div>
+    </div>
+  </div>
+<% end %>
+<div id="new_menu_text" class="lesson_menu_box" style="visibility:hidden;">
+  <span> -> </span>
+  <input type="text">
+  <div class="icon_box" style="display: inline;">
+    <a class="menu_close"><span class="ui-icon ui-icon-close ui-icon-inline" ></span></a>
+    <a class="menu_badd"><span class="ui-icon ui-icon-arrowthick-1-s ui-icon-inline" ></span></a>
+    <a class="menu_radd"><span class="ui-icon ui-icon-arrowthick-1-se ui-icon-inline" ></span></a>
+  </div>
+</div>
+<script>
+ input_card_init();
+</script>
+
